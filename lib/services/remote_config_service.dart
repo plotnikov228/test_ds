@@ -7,7 +7,7 @@ class RemoteConfigService {
       fetchTimeout: const Duration(minutes: 1),
       minimumFetchInterval: const Duration(hours: 1),
     ));
-    await remoteConfig.setDefaults(<String, dynamic>{'key1': ""});
+    await remoteConfig.setDefaults(<String, dynamic>{'url': ""});
     await remoteConfig.fetchAndActivate();
     return remoteConfig;
   }

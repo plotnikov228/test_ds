@@ -2,25 +2,6 @@ import 'package:flutter/material.dart';
 import '../widgets/plug_plan.dart';
 import '../widgets/plug_stopwatch.dart';
 
-class PlugMaterial extends StatelessWidget {
-  const PlugMaterial({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-        debugShowCheckedModeBanner: false,
-        title: "Remote Config",
-        routes: {
-          '/plug': (context) => const Plug(),
-          '/plug/stopwatch': (context) => const PlugStopwatch(),
-          '/plug/plan': (context) => const Plug(),
-        },
-        home: const Plug(),
-    );
-  }
-}
-
-
 class Plug extends StatefulWidget {
 
   const Plug({Key? key}) : super(key: key);
@@ -68,7 +49,7 @@ class _PlugState extends State<Plug> {
                         childWidget = const PlugPlan();
                         });},
                       style: ElevatedButton.styleFrom(
-                        minimumSize: Size.fromHeight(40),
+                        minimumSize: const Size.fromHeight(40),
                         shape: const RoundedRectangleBorder(
                           borderRadius: BorderRadius.all(Radius.circular(0)),
                         ),
@@ -95,7 +76,7 @@ class _PlugState extends State<Plug> {
                         });
                         },
                       style: ElevatedButton.styleFrom(
-                        minimumSize: Size.fromHeight(40),
+                        minimumSize: const Size.fromHeight(40),
                         shape: const RoundedRectangleBorder(
                           borderRadius: BorderRadius.all(Radius.circular(0)),
                         ),

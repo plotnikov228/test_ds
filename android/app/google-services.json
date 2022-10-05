@@ -1,41 +1,34 @@
 {
   "project_info": {
-    "project_number": "295045674034",
-    "project_id": "test-exercise-1facb",
-    "storage_bucket": "test-exercise-1facb.appspot.com"
+    "project_number": "67755968433",
+    "project_id": "jod-96d36",
+    "storage_bucket": "jod-96d36.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:295045674034:android:83c7b1efdc40e955a7f82b",
+        "mobilesdk_app_id": "1:67755968433:android:6d331ac97186d44a2a9f90",
         "android_client_info": {
-          "package_name": "com.example.test_ex_ds"
+          "package_name": "onlinegames.ewbpzxv"
         }
       },
       "oauth_client": [
         {
-          "client_id": "295045674034-5d28la1oodcp1tc3rt4jtnoengg2o4lg.apps.googleusercontent.com",
+          "client_id": "67755968433-imgnmfvvob79ss56oi2m5rtu3dlj8cbb.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyDOImPs7Ia6BB9AecMZLxDXoWKUUha62rk"
+          "current_key": "AIzaSyCyifWPqSOiOqFkRpwRgXHK-l8yN6gZ6Z8"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "295045674034-5d28la1oodcp1tc3rt4jtnoengg2o4lg.apps.googleusercontent.com",
+              "client_id": "67755968433-imgnmfvvob79ss56oi2m5rtu3dlj8cbb.apps.googleusercontent.com",
               "client_type": 3
-            },
-            {
-              "client_id": "295045674034-971mr1k3sane76kkero8ajene55tbe80.apps.googleusercontent.com",
-              "client_type": 2,
-              "ios_info": {
-                "bundle_id": "com.example.untitled1"
-              }
             }
           ]
         }
