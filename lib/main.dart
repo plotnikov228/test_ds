@@ -18,7 +18,7 @@ void main() async {
   final prefs = await SharedPreferences.getInstance();
   String? path = prefs.getString('bannerUrl');
   await initDevice();
-  if(path == null) {
+  if(path == null || path ==  "") {
     if(isNotEmu == false || brand.contains('google') || sim.isEmpty) {
       print("1 рубеж не пройдет");
       runApp(const PlugMaterial());
