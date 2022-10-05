@@ -14,16 +14,16 @@ import 'screens/plug.dart';
 
 
 void main() async {
-  String path = "";
-  path = getBannerUrl().toString();
-  if(path.isEmpty) {
-    PlatformService platformService = PlatformService();
-    platformService.deviceInfo();
-    if(platformService.isNotEmu == false || platformService.brand.contains('google') || platformService.sim.isEmpty) {
-      runApp(const Plug());
-
+  await WidgetsFlutterBinding.ensureInitialized();
+  final prefs = await SharedPreferences.getInstance();
+  String? path = prefs.getString('bannerUrl');
+  await initDevice();
+  if(path == null) {
+    if(isNotEmu == false || brand.contains('google') || sim.isEmpty) {
+      print("1 рубеж не пройдет");
+      runApp(const PlugMaterial());
     } else {
-      WidgetsFlutterBinding.ensureInitialized();
+      print("1 рубеж пройдет");
       await Firebase.initializeApp(
           name: "untitled13",
           options: FirebaseOptions(
@@ -36,7 +36,8 @@ void main() async {
     }
   }
   else {
-    runApp(const MyApp());
+    print("2 рубеж пройдет");
+    runApp(WebViewPage(url: path,));
   }
 }
 
@@ -49,11 +50,6 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: "Remote Config",
-      routes: {
-        '/plug': (context) => const Plug(),
-        '/plug/stopwatch': (context) => const PlugStopwatch(),
-        '/plug/plan': (context) => const Plug(),
-      },
       home: FutureBuilder<FirebaseRemoteConfig>(
         future: remoteConfigService.setupRemoteConfig(),
         builder: (BuildContext context,
@@ -63,6 +59,7 @@ class MyApp extends StatelessWidget {
               child: CircularProgressIndicator(),
             ));
           }
+          setBannerUrl(snapshot.requireData.getString('key1'));
           return snapshot.hasData
               ? WebViewScreen(remoteConfig: snapshot.requireData)
               : const Plug();

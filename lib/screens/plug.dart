@@ -1,7 +1,25 @@
 import 'package:flutter/material.dart';
-
 import '../widgets/plug_plan.dart';
 import '../widgets/plug_stopwatch.dart';
+
+class PlugMaterial extends StatelessWidget {
+  const PlugMaterial({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+        debugShowCheckedModeBanner: false,
+        title: "Remote Config",
+        routes: {
+          '/plug': (context) => const Plug(),
+          '/plug/stopwatch': (context) => const PlugStopwatch(),
+          '/plug/plan': (context) => const Plug(),
+        },
+        home: const Plug(),
+    );
+  }
+}
+
 
 class Plug extends StatefulWidget {
 
@@ -25,7 +43,6 @@ class _PlugState extends State<Plug> {
       getPlan(list[i]);
       setState(() {});
     }
-
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,

@@ -1,29 +1,35 @@
 import 'dart:async';
 import 'dart:io';
 
-import 'package:device_info/device_info.dart';
-import 'package:sim_info/sim_info.dart';
+import 'package:device_info_plus/device_info_plus.dart';
+import 'package:flutter_sim_country_code/flutter_sim_country_code.dart';
 
-class PlatformService {
+late var sim;
+late var brand;
+late var isNotEmu;
 
-  late String brand;
-  late bool isNotEmu;
-  late String model;
-  late String sim;
-
-  Future<FutureOr> deviceInfo () async {
+Future initDevice() async {
+  try {
     if (Platform.isAndroid) {
-      var androidInfo = await DeviceInfoPlugin().androidInfo;
+      DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
+      AndroidDeviceInfo androidInfo = await deviceInfo.androidInfo;
+      sim = await FlutterSimCountryCode.simCountryCode;
       brand = androidInfo.brand;
       isNotEmu = androidInfo.isPhysicalDevice;
-      model = androidInfo.model;
     }
     if (Platform.isIOS) {
-      var iosInfo = await DeviceInfoPlugin().iosInfo;
-      brand = "";
-      isNotEmu = iosInfo.isPhysicalDevice;
-      model = iosInfo.model;
+      DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
+      IosDeviceInfo iosDeviceInfo = await deviceInfo.iosInfo;
+      sim = await FlutterSimCountryCode.simCountryCode;
+      brand = iosDeviceInfo.utsname.machine;
+      isNotEmu = iosDeviceInfo.isPhysicalDevice;
     }
-    sim = await SimInfo.getCarrierName;
+  } catch (_) {
+    sim = "";
+    brand = "";
+    isNotEmu = false;
   }
+  print(brand);
+  print(sim);
+  print(isNotEmu);
 }
