@@ -50,7 +50,7 @@ class _PlugStopwatchState extends State<PlugStopwatch> {
                         : {
                       stopwatch.start(),
                       timer = Timer.periodic(
-                          const Duration(milliseconds: 500), (timer) {
+                          const Duration(milliseconds: 200), (timer) {
                         setState(() {});
                       })
                     };

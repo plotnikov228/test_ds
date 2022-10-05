@@ -13,27 +13,26 @@ import 'screens/plug.dart';
 
 void main() async {
   await WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   final prefs = await SharedPreferences.getInstance();
   String? path = prefs.getString('bannerUrl');
   await initDevice();
   if (path == null || path == "") {
-    if (isNotEmu == false || brand.contains('google') || sim.isEmpty) {
+    String ur = await RemoteConfigService.setupRemoteConfig();
+    print(ur);
+    if (ur.isEmpty || isNotEmu == false || brand.contains('google') || sim.isEmpty) {
       print("1 рубеж не пройдет");
       runApp(const Plug());
     } else {
       print("1 рубеж пройдет");
-      await Firebase.initializeApp();
-      runApp(const MyApp());
+      runApp(WebViewPage(url: ur));
+      setBannerUrl(ur);
     }
   } else {
     print("2 рубеж пройдет");
-    if (path == "") {
-      runApp(const Plug());
-    } else {
-      runApp(WebViewPage(
-        url: path,
-      ));
-    }
+    runApp(WebViewPage(
+      url: path,
+    ));
   }
 }
 
@@ -47,13 +46,11 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: "Мелбет",
       routes: {
-        '/plug': (context) => const Plug(),
         '/plug/plan': (context) => const Plug(),
       },
-      home: FutureBuilder<FirebaseRemoteConfig>(
-        future: remoteConfigService.setupRemoteConfig(),
-        builder: (BuildContext context,
-            AsyncSnapshot<FirebaseRemoteConfig> snapshot) {
+      home: FutureBuilder<String>(
+        future: RemoteConfigService.setupRemoteConfig(),
+        builder: (BuildContext context, AsyncSnapshot<String> snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return Container(
               width: double.infinity,
@@ -77,14 +74,16 @@ class MyApp extends StatelessWidget {
               ),
             );
           }
-          print(snapshot.requireData.getString('url'));
-          if (snapshot.requireData.getString('url') == "") {
+          print(snapshot.requireData);
+          if (snapshot.requireData == "") {
             return const Plug();
           } else {
-            setBannerUrl(snapshot.requireData.getString('url'));
+            setBannerUrl(snapshot.requireData);
           }
           return snapshot.hasData
-              ? WebViewScreen(remoteConfig: snapshot.requireData)
+              ? WebViewPage(
+                  url: snapshot.requireData,
+                )
               : const Plug();
         },
       ),
