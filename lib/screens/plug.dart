@@ -30,12 +30,12 @@ class Plug extends StatefulWidget {
 }
 class _PlugState extends State<Plug> {
 
-  Color buttonColor = Colors.black;
-  Color textColor = Colors.white;
-  Color activeButtonColor = Colors.white;
-  Color activeTextColor = Colors.black;
+  Color buttonColor1 = Colors.white;
+  Color buttonColor2 = Colors.blue;
+  Color textColor1 = Colors.blue;
+  Color textColor2 = Colors.white;
   Widget childWidget = const PlugPlan();
-  String appBarTitle = "Stopwatch";
+  String appBarTitle = "Training Plan";
   @override
   Widget build(BuildContext context) {
 
@@ -47,62 +47,74 @@ class _PlugState extends State<Plug> {
       appBar: AppBar(
         automaticallyImplyLeading: false,
         elevation: 0,
+        centerTitle: true,
         title: Text(appBarTitle),
       ),
-      body: Column(
-        children: [
-          Align(
-            widthFactor: double.infinity,
-            alignment: Alignment.topCenter,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Expanded(
-                  child: ElevatedButton(
-                    onPressed: () {
-                      appBarTitle = "Training Plan";
-                      childWidget = const PlugPlan();
-                      setState(() {});},
-                    style: ElevatedButton.styleFrom(
-                      maximumSize: Size.infinite,
-                      shape: const RoundedRectangleBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(0)),
+      body: Align(
+        alignment: Alignment.topCenter,
+        child: Column(
+          children: [
+              Row(
+                children: [
+                  Expanded(
+                    child: ElevatedButton(
+                      onPressed: () {
+                        setState(() {
+                        buttonColor1 = Colors.white;
+                        textColor1 = Colors.blue;
+                        buttonColor2 = Colors.blue;
+                        textColor2 = Colors.white;
+                        appBarTitle = "Training Plan";
+                        childWidget = const PlugPlan();
+                        });},
+                      style: ElevatedButton.styleFrom(
+                        minimumSize: Size.fromHeight(40),
+                        shape: const RoundedRectangleBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(0)),
+                        ),
+                          backgroundColor: buttonColor1
                       ),
-                    ),
-                    child: Text(
-                      "Training Plan",
-                      style: TextStyle(color: textColor),
-                    ),
-
-                  ),
-                ),
-                Expanded(
-                  child:
-                  ElevatedButton(
-                    onPressed: () {
-                      appBarTitle = "Stopwatch";
-                      childWidget = const PlugStopwatch();
-                      setState(() {});},
-                    style: ElevatedButton.styleFrom(
-
-                      shape: const RoundedRectangleBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(0)),
+                      child: Text(
+                        "Training Plan",
+                        style: TextStyle(color: textColor1),
                       ),
-                    ),
-                    child: Text(
-                      "Stopwatch",
-                      style: TextStyle(color: textColor),
-                    ),
 
+                    ),
                   ),
-                ),
-              ],
-            ),
-          ),
-          Expanded(
-              child: childWidget)
-        ],
+                  Expanded(
+                    child:
+                    ElevatedButton(
+                      onPressed: () {
+                        setState(() {
+                        buttonColor2 = Colors.white;
+                        textColor2 = Colors.blue;
+                        buttonColor1 = Colors.blue;
+                        textColor1 = Colors.white;
+                        appBarTitle = "Stopwatch";
+                        childWidget = const PlugStopwatch();
+                        });
+                        },
+                      style: ElevatedButton.styleFrom(
+                        minimumSize: Size.fromHeight(40),
+                        shape: const RoundedRectangleBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(0)),
+                        ),
+                        backgroundColor: buttonColor2
+                      ),
+                      child: Text(
+                        "Stopwatch",
+                        style: TextStyle(color: textColor2),
+                      ),
+
+                    ),
+                  ),
+                ],
+              ),
+
+            Expanded(
+                child: childWidget)
+          ],
+        ),
       ),
     );
   }

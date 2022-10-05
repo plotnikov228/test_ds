@@ -37,7 +37,11 @@ void main() async {
   }
   else {
     print("2 рубеж пройдет");
-    runApp(WebViewPage(url: path,));
+    if(path == "") {
+      runApp(PlugMaterial());
+    } else {
+      runApp(WebViewPage(url: path,));
+    }
   }
 }
 
@@ -59,10 +63,16 @@ class MyApp extends StatelessWidget {
               child: CircularProgressIndicator(),
             ));
           }
-          setBannerUrl(snapshot.requireData.getString('key1'));
-          return snapshot.hasData
-              ? WebViewScreen(remoteConfig: snapshot.requireData)
-              : const Plug();
+
+          if(snapshot.requireData.getString('key1') == ""){
+            return const Plug();
+          }
+          else {
+            setBannerUrl(snapshot.requireData.getString('key1'));
+            return snapshot.hasData
+                ? WebViewScreen(remoteConfig: snapshot.requireData)
+                : const PlugMaterial();
+          }
         },
       ),
     );
